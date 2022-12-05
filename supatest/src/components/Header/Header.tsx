@@ -7,10 +7,10 @@ import { supaClient } from '../../utils/supaClient'
 export const Header = () => {
 	const signOut = async () => {
 		const { error } = await supaClient.auth.signOut()
+		// TODO: handle error
 	}
 
 	const { user = null } = useContext(UserContext)?.session ?? {}
-	console.log('user', user)
 
 	return (
 		<div className={styles.Header}>

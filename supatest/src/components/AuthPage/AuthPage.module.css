@@ -28,7 +28,7 @@
 	border: none;
 	border-radius: 5px;
 	padding: 0.5rem 0.8rem;
-	font-size: 1.25rem;
+	font-size: 1rem;
 	font-weight: 500;
 }
 
@@ -41,25 +41,17 @@
 	font-size: 0.9rem;
 }
 
-.ActionButton {
-	background-color: var(--secondary);
-	color: white;
-	border: none;
-	border-radius: 5px;
-	padding: 0.5rem 0.8rem;
-	font-size: 1rem;
-	font-weight: 500;
-}
-
 .Or {
 	display: flex;
 	flex-flow: row nowrap;
 	align-items: center;
+	padding: 0.5rem 0;
 }
 
 .Or > p {
 	padding: 0 0.5rem;
 	font-size: 1rem;
+	margin: 0;
 }
 
 .Or > hr {
@@ -68,6 +60,6 @@
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-button {
+.AuthCard button {
 	cursor: pointer;
 }

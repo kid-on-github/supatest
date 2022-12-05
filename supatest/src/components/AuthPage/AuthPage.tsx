@@ -3,29 +3,19 @@ import { supaClient } from '../../utils/supaClient'
 import { Page } from '../Page/Page'
 import styles from './AuthPage.module.css'
 import type { Provider } from '@supabase/gotrue-js'
-
-const register = async () => {
-	const { data, error } = await supaClient.auth.signUp({
-		email: 'example@email.com',
-		password: 'example-password',
-	})
-}
-
-const login = async () => {
-	const { data, error } = await supaClient.auth.signInWithPassword({
-		email: 'example@email.com',
-		password: 'example-password',
-	})
-}
+import AuthForm from './AuthForm'
 
 const socialLogin = async (provider: Provider) => {
 	const { data, error } = await supaClient.auth.signInWithOAuth({
 		provider,
 	})
+	// TODO: handle error
 }
 
+export type ActionType = 'sign_in' | 'sign_up'
+
 export const AuthPage = () => {
-	const [actionType, setActionType] = useState<'sign_in' | 'sign_up'>('sign_in')
+	const [actionType, setActionType] = useState<ActionType>('sign_in')
 
 	const toggleActionType = () => {
 		setActionType(actionType === 'sign_in' ? 'sign_up' : 'sign_in')
@@ -35,11 +25,9 @@ export const AuthPage = () => {
 		<Page>
 			<div className={styles.AuthPage}>
 				<div className={styles.AuthCard}>
-					<h1>{actionType === 'sign_in' ? 'Sign In' : 'Register'}</h1>
+					<h1>{actionType === 'sign_in' ? 'Sign in' : 'Register'}</h1>
 
-					<button className={styles.ActionButton}>
-						{actionType === 'sign_in' ? 'Sign In' : 'Register'}
-					</button>
+					<AuthForm actionType={actionType} />
 
 					<button className={styles.AuthToggle} onClick={toggleActionType}>
 						{actionType === 'sign_in' ? 'Create an Account' : 'Sign in'}
@@ -55,7 +43,7 @@ export const AuthPage = () => {
 						className={styles.GoogleAuth}
 						onClick={() => socialLogin('google')}
 					>
-						Sign In with Google
+						Sign in with Google
 					</button>
 				</div>
 			</div>
