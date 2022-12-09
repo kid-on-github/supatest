@@ -10,6 +10,10 @@ export const Header = () => {
 		// TODO: handle error
 	}
 
+	const {profile} = useContext(UserContext)
+
+	console.log('profile', profile)
+
 	const { user = null } = useContext(UserContext)?.session ?? {}
 
 	return (

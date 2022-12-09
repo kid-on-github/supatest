@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { supaClient } from '../../utils/supaClient'
 import { Page } from '../Page/Page'
 import styles from './AuthPage.module.css'
 import type { Provider } from '@supabase/gotrue-js'
 import AuthForm from './AuthForm'
+import { UserContext } from '../../App'
+import { Navigate } from 'react-router-dom'
 
 const socialLogin = async (provider: Provider) => {
 	const { data, error } = await supaClient.auth.signInWithOAuth({
@@ -15,13 +17,16 @@ const socialLogin = async (provider: Provider) => {
 export type ActionType = 'sign_in' | 'sign_up'
 
 export const AuthPage = () => {
+	const { user = null } = useContext(UserContext)?.session ?? {}
 	const [actionType, setActionType] = useState<ActionType>('sign_in')
 
 	const toggleActionType = () => {
 		setActionType(actionType === 'sign_in' ? 'sign_up' : 'sign_in')
 	}
 
-	return (
+	return user ? (
+		<Navigate to={'/events'} />
+	) : (
 		<Page>
 			<div className={styles.AuthPage}>
 				<div className={styles.AuthCard}>
